@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Form 2 Solar System Learning Lab</title>
+<style>
+:root{--navy:#142d4e;--blue:#2d6da3;--bg:#f4f8fc;--ink:#26384b;--green:#246b45;--amber:#8b5600}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Arial,sans-serif}
+header{background:var(--navy);color:white;padding:24px max(18px,calc((100% - 950px)/2))}h1{margin:0;font-size:clamp(1.5rem,4vw,2.2rem)}header p{color:#bfe4ff;margin:8px 0 0}
+main{max-width:950px;margin:22px auto;padding:0 16px}.panel{background:white;border:1px solid #d6e0ea;border-radius:15px;padding:22px;margin:17px 0;box-shadow:0 4px 14px #17365d0b}
+h2{color:var(--navy);margin-top:0}.prompt{background:#eaf2fc;padding:14px;border-radius:10px}
+.q{border-top:1px solid #e2e8f0;padding:14px 0}.q p{font-weight:bold;margin:0 0 8px}label{display:block;margin:8px 0}
+button{background:var(--navy);color:white;border:0;border-radius:9px;padding:11px 16px;font-weight:bold;cursor:pointer;margin:4px 5px 0 0}button.secondary{background:#687b8f}
+.feedback{padding:12px;border-radius:9px;margin-top:12px;background:#eaf2fc;min-height:36px}.good{background:#e2f5ea}.warn{background:#fff1d8}
+.small{color:#5b6b7d;font-size:.92rem}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+</style></head><body>
+<header><h1>Form 2 Science: Solar System Learning Lab</h1><p>Observe • Identify • Sequence • Explain</p></header>
+<main>
+<section class="panel"><h2>Learning challenge</h2><div class="prompt"><strong>Scenario:</strong> Your class is preparing a mini-exhibition about the Solar System. Use the infographic to answer the questions and explain why the order of the planets matters.</div>
+<p class="small">The diagram is schematic and not to scale. Planet descriptions are simplified for Form 2 revision.</p></section>
+<section class="panel"><h2>Part A — Check your understanding</h2><form id="quiz">
+<div class="q"><p>1. What is at the centre of our Solar System?</p><label><input type="radio" name="q1" value="a"> Earth</label><label><input type="radio" name="q1" value="b"> The Sun</label><label><input type="radio" name="q1" value="c"> Jupiter</label></div>
+<div class="q"><p>2. Which planet is third from the Sun?</p><label><input type="radio" name="q2" value="a"> Venus</label><label><input type="radio" name="q2" value="b"> Mars</label><label><input type="radio" name="q2" value="c"> Earth</label></div>
+<div class="q"><p>3. Which planet is the largest in our Solar System?</p><label><input type="radio" name="q3" value="a"> Jupiter</label><label><input type="radio" name="q3" value="b"> Saturn</label><label><input type="radio" name="q3" value="c"> Neptune</label></div>
+<div class="q"><p>4. Which planet is known for its prominent ring system?</p><label><input type="radio" name="q4" value="a"> Mars</label><label><input type="radio" name="q4" value="b"> Saturn</label><label><input type="radio" name="q4" value="c"> Mercury</label></div>
+<div class="q"><p>5. Which sequence correctly lists the planets from the Sun outward?</p><label><input type="radio" name="q5" value="a"> Earth, Venus, Mercury, Mars, Jupiter, Saturn, Uranus, Neptune</label><label><input type="radio" name="q5" value="b"> Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune</label><label><input type="radio" name="q5" value="c"> Mercury, Earth, Venus, Jupiter, Mars, Uranus, Saturn, Neptune</label></div>
+<button type="button" onclick="checkQuiz()">Check answers</button><button type="button" class="secondary" onclick="resetQuiz()">Try again</button></form><div id="result" class="feedback" aria-live="polite"></div><div id="explanations"></div></section>
+<section class="panel"><h2>Part B — Explain in your own words</h2><p>Choose one planet and explain its position in the Solar System. Then state one fact about it from the infographic.</p><textarea id="response" style="width:100%;min-height:100px;padding:10px;border:1px solid #bdcbd9;border-radius:8px;font:inherit" placeholder="Example: Earth is the third planet from the Sun..."></textarea><p class="small">Use this as an exit ticket or pair discussion. Your teacher can assess the explanation separately.</p></section>
+<section class="panel"><h2>Teacher check</h2><div class="grid"><div class="prompt"><strong>Objective 1</strong><br>Can the learner identify the Sun and name at least six planets in the correct order?</div><div class="prompt"><strong>Objective 2</strong><br>Can the learner answer at least four quiz questions correctly and explain one planet fact?</div></div></section>
+</main>
+<script>
+const key={q1:'b',q2:'c',q3:'a',q4:'b',q5:'b'};
+const exp=[
+'The Sun is the star at the centre of the Solar System; the planets orbit it.',
+'Earth is the third planet from the Sun, after Mercury and Venus.',
+'Jupiter is the largest planet in the Solar System.',
+'Saturn is known for its prominent ring system.',
+'From the Sun outward, the order is Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus and Neptune.'
+];
+function checkQuiz(){let score=0,done=0,html='';for(let i=1;i<=5;i++){let a=document.querySelector('input[name="q'+i+'"]:checked');if(a){done++;if(a.value===key['q'+i])score++;html+='<p><strong>Question '+i+':</strong> '+exp[i-1]+'</p>'}else{html+='<p><strong>Question '+i+':</strong> Not answered. '+exp[i-1]+'</p>'}}let r=document.getElementById('result');r.className='feedback '+(score>=4&&done===5?'good':'warn');r.textContent=done<5?'Please answer all five questions. Current score: '+score+'/5.':'You scored '+score+'/5. '+(score>=4?'Well done—you have met the quiz target. Review the explanations to strengthen your understanding.':'Review the infographic and try again.');document.getElementById('explanations').innerHTML=html}
+function resetQuiz(){document.getElementById('quiz').reset();document.getElementById('result').textContent='';document.getElementById('explanations').innerHTML=''}
+</script></body></html>
